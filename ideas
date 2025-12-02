@@ -1,0 +1,54 @@
+# Load 2020 population for NJ counties, without geometry
+census <- get_decennial(
+  geography = "county",
+  variables = "P1_001N",   # total population
+  state = "NJ",
+  year = 2020,
+  geometry = FALSE
+)
+
+#Look at the data
+census
+
+# Get election data for presidential elections
+load("data/dataverse_shareable_presidential_county_returns_1868_2020.Rdata")
+
+data <- pres_elections_release |>
+  filter(sfips == 34)
+# goes up until 2020
+
+# Look at the gubernatorial data
+load("C:\\Users\\julia\\Downloads\\dataverse_shareable_gubernatorial_county_returns_1865_2020.Rdata")
+
+gov <- gov_elections_release |>
+  filter(sfips == 34)
+gov
+# Looks like that goes to 2017 but not 2021 or 2025
+
+# Now senate data
+load("C:\\Users\\julia\\Downloads\\dataverse_shareable_us_senate_county_returns_1908_2020.Rdata")
+
+senate <- senate_elections_release |>
+  filter(sfips == 34)
+# Okay, that goes up until 2020. does not capture Andy Kim in 2024
+
+
+# Thinking about the years that I want to capture
+
+- 2025 gubernatorial
+- 2024 andy kim
+- 2024 presidential
+- 2022 midterms
+- 2021 guberantorial
+- 2020 booker
+- 2020 biden
+- 2018 midterms
+- 2018 menendez??
+- 2017 gubernatorial
+- 2016 trump
+
+pres: 2024, 2020, 2016, 2012, 2008, 2004, 2000, 1996
+gov: 2025, 2021, 2017, 2013, 2009, 2005
+senate: 2024, 2020, 2018, 2014, 2012, 2008
+midterms/house: 2024, 2022, 2020, 2018, 2016, 2014, 2012, 2010, 2008, 2006, 2004, 2002
+race/demographics: 2000,2010, 2020 (can we go earlier?)
