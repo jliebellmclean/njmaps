@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Julia Liebell-McLean">
+<meta name="dcterms.date" content="2025-12-11">
+
+<title>Final Project Report: New Jersey Maps</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="Report_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Report_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Report_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Report_files/libs/quarto-html/popper.min.js"></script>
+<script src="Report_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Report_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Report_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Report_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Report_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Report_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Report_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Final Project Report: New Jersey Maps</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Julia Liebell-McLean </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 11, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="abstract" class="level1">
+<h1>Abstract</h1>
+<p>This data project was inspired by replicating figures from the Associate Press (AP) that visualized the results of the 2025 New Jersey gubernatorial election. In addition to recreating the maps, I also graphed longer-term trends in NJ partisan elections from 2000 to 2025. I included figures of other demographic factors over that same time period using population and racial/ethnicity data from the U.S. Census. My figures demonstrate while New Jersey has become increasingly nonwhite, the state is still predominantly white in all except three counties. The most diverse counties tend to vote more Democratic in presidential, senate, and gubernatorial election. However, because my analysis does not perform any statistical analysis nor does it include control variable besides population and population density, I make no causal argument about the effect of racial/ethnic makeup and voting trends.</p>
+</section>
+<section id="project-overview-and-motivation" class="level1">
+<h1>Project Overview and Motivation</h1>
+<p>On Tuesday, November 4, 2025, New Jersey elected Democratic candidate Mikie Sherill as Governor. The Associated Press (AP) called the race within a few hours of polls closing, and Sherill joined the ranks of Democrats such as Abigail Spanberger (VA Governor) and Zohran Mamdani (NYC Mayor) who won surprisingly handy victories in 2025 off-off-year elections.</p>
+<p>Prior to the results being announced, political analysts seemed unsure of what historic trends might predict for the NJ gubernatorial contest. The AP wrote:</p>
+<blockquote class="blockquote">
+<p>“New Jersey will break one of two trends with this election. Voters have elected a governor from the opposite party of the sitting president in every election from 1989 to 2017 — good news for Democratic Rep.&nbsp;Mikie Sherrill. But no party has held the New Jersey governorship for more than three consecutive terms since the 1960s, which bodes well for Republican nominee Jack Ciattarelli.”</p>
+</blockquote>
+<p>Given the trends, it was even more suprising when Sherill’s victory was announced. Not only did she win, but she outperformed Kamala Harris across the state. She also performed better than incumbent Democratic candidate, Philip Murphy, had done in 2021 for the last governor’s election. Even in solidly red counties, Sherill received more votes than Murphy had.</p>
+<p>The results described above were nicely visualized in two graphics on the <a href="https://apnews.com/projects/election-results-2025/new-jersey/?r=31033">Associated Press’s website</a> (Figure 1). The first, as you can see below, showed the ballot tally in each county. The dots are sized to represent how many ballots were counted (i.e., counties with more people voting have larger circles), and the circles are also shaded to represent the partisan breakdown of the vote tally– the more blue the circle, the higher margin of victory for Sherill; the more red, the higher the margin was for Republican Jack Ciattarelli.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/ap_news.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 1: Original AP NJ Election Map</figcaption>
+</figure>
+</div>
+<p>When I originally started this project (and less than a week ago), there was a second figure on the righthand side of the page. That figure showed the margin shift between 2021 and 2025. The figure showed that every single county, even ones that were solidly Republican, tallied more Democratic votes in 2021 than in 2025. Unfortunately, the margin shift figure is no longer available, and I was not able to find a previous version in Internet archives.</p>
+<p>I embarked on this project to try to better understand and visualize partisan voting trends in New Jersey over the past 25 years. To complement this analysis, I also included a few demographic factors: population count; population density; and race/ethnicity.</p>
+</section>
+<section id="data-used" class="level1">
+<h1>Data Used</h1>
+<p>To draw maps with NJ counties, I used a shapefile from the US census, filtered down to just counties with the NJ fips code (34). This shapefile is the same one provided in the course drive for Practicum 2. New Jersey has twenty-one counties, and they are the unit of observation for my analysis (Figure 2).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/county-color.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 2: New Jersey Counties</figcaption>
+</figure>
+</div>
+<p>For election results, I used several datasets from the Carlos Algara Dataverse, housed on Harvard’s dataverse website. I pulled election data about presidential, gubernatorial and senate elections. A link to the presidental dataset (which can then easily be used to find senate and gubernatorial data) is <a href="https://dataverse.harvard.edu/file.xhtml?fileId=5028532&amp;version=1.1">here</a>.</p>
+<p>The Algara data only go until 2020, so I did not have information about either the 2021 governor’s race or the most recent 2025 race. Actually, it also meant that I didn’t have data for the 2024 senate race, which Andy Kim, a Democrat, won; however, I decided that it was not important enough to go find the vote totals for each county.</p>
+<p>In order to be able to map the gubernatorial results, I created my own data set, which is included in the data folder as a CSV file, “updated_gov.” To create the file, I went to the County Clerk website for each of New Jersey’s twenty-one counties and found the vote totals for both 2021 and 2025. I cross-referenced the numbers against one’s on the AP’s website to make sure that I was creating an accurate replication. I did not include any third-party votes in the updated dataset because my focus was on two-party trends.</p>
+<p>For the subsequent figures, I used the same Census shapefile and also pulled data directly from the Census website using my key. I queried the 2000, 2010, and 2020 decennial censuses, and I pulled information about population size and racial/ethnic characteristics.</p>
+</section>
+<section id="process-scripts-and-figures" class="level1">
+<h1>Process, Scripts, and Figures</h1>
+<p>My project includes four R scripts, each of which loads data, cleans and transforms it, and then creates one or more visualizations. I divided the workflow into three broad categories: partisan maps; population and population density (which I term “demographics”); and race and ethnicity.</p>
+<section id="partisan-maps" class="level2">
+<h2 class="anchored" data-anchor-id="partisan-maps">Partisan Maps</h2>
+<p>For this section, I drew on Practicum 2 to start with a basic map of NJ counties. I then pulled the election data, and for each kind of election (presidential, senate, and gubernatorial), I calculated vote percentages for Democrats and Republicans and then created a variable called d_points which was Democratic share minus Republican share. This allowed me to graph results on a single scale from -1 to 1 and color positive values in blue to conform to visualization standards for US election maps (Figure 3). I used some of the same techniques but different graphing code to replicate the figures from the AP.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/pres.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 3: Presidential Elections</figcaption>
+</figure>
+</div>
+<p>For each figure, I included multiple years in one image using facet_wrap so that it was easier to see how the voting trends evolved over time. I did not use a function to generate the maps or to create graphics for all three election types because each type has a slightly different set of variables. I found it easier to copy-paste the code and adjust as needed.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/senate.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 4: Senate Elections</figcaption>
+</figure>
+</div>
+<p>The Senate maps show a fairly blue New Jersey (Figure 4). Indeed, the state has not elected a Republican senator since 1972 (two were appointed to finish terms but did not seek/win re-election). In contrast, the gubernatorial maps below paint a slightly different portrait. As reflected in the quote from the AP above, New Jersey has never elected a governor from the same party for three terms in a row, so after eight years of Democratic governance, it tends to swing right. In the maps below, 2009 and 2013 represent years when Chris Christie was [re]elected (Figure 5).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/gov.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 5: Gubernatorial Elections</figcaption>
+</figure>
+</div>
+<p>In addition to temporal maps, I also replicated the figures from the Associated Press (Figures 6 and 7). The data for the first map is much the same as for the gubernatorial maps seen above. I tinkered more with ggplot2 to get the dots to plot in the appropriate size. For the margin shift, I unstacked the data and made it wide, which allowed me to calculate shifts in Democratic and Republican vote percentages between 2021 and 2025.</p>
+<p><img src="figures/2025ballotcount.png" class="img-fluid" alt="Figure 6: AP Replication - Vote Count"> <img src="figures/2025marginshift.png" class="img-fluid" alt="Figure 7: AP Replication - Margin Shift"></p>
+</section>
+<section id="demographics" class="level2">
+<h2 class="anchored" data-anchor-id="demographics">Demographics</h2>
+<p>For the population and population density figures, I also relied on code I had written for Practicum 2. I found it relatively easy to graph the overall population (Figure 8). Whereas in Practicum 2, I ended up using a logged scale, I just set the scale limits here to the minimum and maximum population values. In New Jersey, there are quite large differences. For example, Salem County had around 64,000 people in 2000 compared to Bergen County’s 955,000 people in 2020. But this pales in comparison to the Hamilton County-NYC difference for New York State.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/population.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 8: Population by County, 2000-2020</figcaption>
+</figure>
+</div>
+<p>The main difference for the demographics section was that I spent more time trying to adjust the scale and the color spectrum to capture the full range of density. For some context, the lowest density count was fewer than 300 people per square mile (Salem County), and the most dense county was Hudson County which had over 15,600 people per square mile (see Figure 9). I binned the data, and then I used AI to help me identify how many bins there were in the full scale (53) versus how many bins were actually used (19). This was important because creating a scale that would support 53 distinct bins was pretty much impossible, or rather, it was possible but it obscured small changes in counties across time, which was precisely what I wanted to show. Once I knew that only a fraction of the bins were represented in the data, I could focus on a 19-color scale that perhaps obscured the gap between the least and most dense counties, but would at least show how counties evolved over time.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/density.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 9: Population Density by County, 2000-2020</figcaption>
+</figure>
+</div>
+</section>
+<section id="race-and-ethnicity" class="level2">
+<h2 class="anchored" data-anchor-id="race-and-ethnicity">Race and Ethnicity</h2>
+<p>Finally, for race and ethnicity, it took me much longer to find the right variables to use in the census and to make sure I was comparing likes across the three decennial censuses. Once I pulled the data, I cleaned it and calculated percentages for each group. For this set of graphs, I had five groups of interest: white; nonwhite; Black; Hispanic/Latino; and Asian. Although other races were included in the data set, they were never a dominant ethnic group, and indeed, typically American Indians, Hawaiians and Pacific Islanders, and people of one or more races made up only 1-3% of a county’s population in a given year.</p>
+<p>For these graphs, I found it much more efficient to write a function that would loop through the five demographic groups I identified and shade the counties according to the percentage of the population that each group represented. I opted to create two sets of graphs with different scales.</p>
+<p>In the first set, I graphed all of the groups on the same 0% - 100% scale (Figures 11 and 12). I thought this was helpful to compare racial/ethnic groups across years and counties. The relative paleness of most of the maps (e.g., Figure 12) also helps demonstrate how white people make up a solid majority in many counties over the three years studied. I include maps for white and Black respondents here, but all ten graphs (five for the 100-point range and five for the min-max range) are included in the Appendix.</p>
+<p><img src="figures/Percent_White-100scale.png" class="img-fluid" alt="Figure 11: Percent of Population Identifying as White, Graphed on a 0-100% Scale"> <img src="figures/Percent_Black-100scale.png" class="img-fluid" alt="Figure 12: Percent of Population Identifying as Black, Graphed on a 0-100% Scale"></p>
+<p>In the second set of graphs, I adjusted the scale for each graph so that it was ran between the minimum and maximum values of the percent of the given racial/ethnic group (Figures 13 and 14). As a result, these maps have more color and make it more clear where there are larger pockets of Black, Hispanic/Latino, and Asian residents.</p>
+<p><img src="figures/Percent_Whiterange-scale.png" class="img-fluid" alt="Figure 13: Percent of Population Identifying as White, Graphed on a Min-Max Scale"> <img src="figures/Percent_Blackrange-scale.png" class="img-fluid" alt="Figure 14: Percent of Population Identifying as Black, Graphed on a Min-Max Scale"></p>
+<p>Finally, in order to more succinctly summarize what the racial/ethnicity graphs show, I created a final figure to show the dominant racial/ethnic group in a given county in New Jersey for 2000, 2010, and 2020 (Figure 15). Each county is colored with the dominant racial/ethnic group for a given year. Clearly, the vast majority of counties are predominantly white. However, one county, Passaic in the north, flips from predominantly white in 2010 to predominantly Hispanic/Latino in 2020. Moreover, each county is shaded according to the size of the racial/ethnic majority/plurality. For ease of comparison, I also included the percentage of the dominant group for each county. You can see that whereas in 2000 most countries are somewhere between 60-95% white, many remain dominantly white but drop from being majority white to simply having a plurality of white residents. For example, Middlesex county (my home county) in the center of the state drops from 62% white in 2000 to 49% in 2010 and 39% in 2020. Maps in the Appendix help show that Middlesex had a growing Asian population in addition to more Hispanic/Latino and Black residents who dilute the white majority. This trend is replicated in other counties such as Mercer (64%-54%-44%) which houses the state capital, Trenton.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/shadedrace.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 15: Dominant Raical/Ethnic Group, 2000-2020</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="reflections" class="level1">
+<h1>Reflections</h1>
+<p>Over the last 25 years, New Jersey has grown more populous, more densely populated, more Democratic, and less white. The presidential and senate elections in particular reveal a more polarized state. In 2000, NJ had more “purple” counties (note: “purple” counties actually show as white in this analysis). By 2025, certain counties, like Ocean County which takes up a majority of the Jersey shore, had become more concentrated red while highly urban counties close to New York City (Essex, Hudson, Passaic) grew more and more deeply blue. Population growth in traditionally blue urban centers may have helped propel Mikie Sherill to an early victory, but so did more Democratic votes in every single county.</p>
+<p>I think one of my biggest takeaways from this project was about working with data from the Census. I expected it to be relatively straightforward to identify which variables I needed and then use the Tidycensus package to pull them. Instead, I found that even the last three decennial censuses (2000, 2010, and 2020) had differences that made it tedious to go through and identify the right variable each time. While I did receive some help from Copilot, the AI also made various errors (e.g., giving me variable codes that were each one off from the real one, so white was actually the total, Black was white, American Indian was Black, etc.). I also learned more about the decennial census versus the American Community Survey (ACS). Originally, I had wanted to include education and income level, but I struggled to find the right variables and to harmonize information from the ACS for later years with information from the 2000 census. I could really appreciate how researchers and data scientists who regularly work with census data would become accustomed to the format.</p>
+<p>For this project, I also enjoyed playing around with some principles of visualization. I spent time experimenting with different colors, moving from discrete to continuous scales, using size versus length, etc. I think the AP figure replications illustrate this well: the first uses the size of circles while the second using the height of lines. As you’d expect, I find it far easier to make comparisons between countiny in the second figure. Additionally, for Figure 15, the dominant racial/ethnic group figure, I iniitally only used color and shading for the graph. Although I like how the shading allows viewers to see which counties are more domininantly white, I didn’t think it was at all easy to tell just what the percentage of the dominant group was, even adding a legend. So instead, I removed the legend and added labels to each county with the percentage of the dominant group. It was a good reminder that sometimes there’s a limit to what you can show with color and good, old-fashioned text does the best job.</p>
+</section>
+<section id="limitations" class="level1">
+<h1>Limitations</h1>
+<p>In many ways, my project suffers analytic deficiencies. The major one is that my figures are descriptive rather than explanatory. While there is certainly correlation between more Democratic support and a growth in the nonwhite population, I run no regression and include no control variables to support any causal explanation. Moreover, I initially wanted to include information about education and income level in NJ counties, but I found wrestling with Census codes from three decades to be too time-consuming. If I had these variables for the twenty-one counties, perhaps I could have run some initial regressions, although there are many other variables (e.g., urbanization, support for Trump, age, gender, etc) which would have been interesting to include in the analysis as controls.</p>
+</section>
+<section id="ai-usage" class="level1">
+<h1>AI Usage</h1>
+<p>For my project, I used Copilot as my main AI assistant. Below, I include a bullet-point summary of the different parts of the project where I consulted AI.</p>
+<ul>
+<li>I used AI to add the city names to the AP graph replications and make it so that they used different ggplot2 point codes.</li>
+<li>I resized the points in the first AP replication graph so that the size was reflective of the number of ballots counted.</li>
+<li>For the Margin Shift figure, I changed from a dot to an arrow and adjust the height of the arrows based on the size of the margin shift.</li>
+<li>I asked Copilot to generate color ideas, especially for the population and density figures.</li>
+<li>I used AI for miscellaneous ggplot2 work, including moving legends around, suppressing one but not the other legend for the dominant group figure, removing gray background, and modifying the size of the title and year labels.</li>
+<li>I asked Copilot for the variable names for the Census: note, Copilot often gave ones that were incorrect or slightly off, but it helped narrow things down. I also used a resource from Tidycensus about retrieiving all the variable codes which was helpful (but not from AI).</li>
+<li>I used AI fairly extensively to continuosly tweak the the dominant group figure. Most importantly, it gave me the code to include two layers: racial group and shading. Afterwards, I used it for small things like moving the legend, adding labels, etc.</li>
+<li>I wrote my own function for the racial/ethnic group maps, but I used Copilot to troubleshoot errors with my brackets and other syntax problems.</li>
+</ul>
+</section>
+<section id="appendix" class="level1">
+<h1>Appendix</h1>
+<p>This appendix includes all ten figures created for racial/ethnic groups in the census data, graphed on a 100-point scale and a scale between the minimum and maximum percentage value for each group.</p>
+<section id="scale-0---100" class="level2">
+<h2 class="anchored" data-anchor-id="scale-0---100">Scale: 0 - 100%</h2>
+<p><img src="figures/Percent_White-100scale.png" class="img-fluid" alt="Figure 11: Percent of Population Identifying as White, Graphed on a 0-100% Scale"> <img src="figures/Percent_Nonwhite-100scale.png" class="img-fluid" alt="Figure 12: Percent of Population Identifying as Nonwhite, Graphed on a 0-100% Scale"> <img src="figures/Percent_Black-100scale.png" class="img-fluid" alt="Figure 11: Percent of Population Identifying as Black, Graphed on a 0-100% Scale"> <img src="figures/Percent_Hispanic_Latino-100scale.png" class="img-fluid" alt="Figure 12: Percent of Population Identifying as Hispanic/Latino, Graphed on a 0-100% Scale"> <img src="figures/Percent_Asian-100scale.png" class="img-fluid" alt="Figure 11: Percent of Population Identifying as Asian, Graphed on a 0-100% Scale"></p>
+</section>
+<section id="scale-minimum---maximum" class="level2">
+<h2 class="anchored" data-anchor-id="scale-minimum---maximum">Scale: Minimum - Maximum</h2>
+<p><img src="figures/Percent_Whiterange-scale.png" class="img-fluid" alt="Figure 13: Percent of Population Identifying as White, Graphed on a Min-Max Scale"> <img src="figures/Percent_Nonwhiterange-scale.png" class="img-fluid" alt="Figure 14: Percent of Population Identifying as Nonwhite, Graphed on a Min-Max Scale"> <img src="figures/Percent_Blackrange-scale.png" class="img-fluid" alt="Figure 13: Percent of Population Identifying as Black, Graphed on a Min-Max Scale"> <img src="figures/Percent_Hispanic_Latinorange-scale.png" class="img-fluid" alt="Figure 14: Percent of Population Identifying as Hispanic/Latino, Graphed on a Min-Max Scale"> <img src="figures/Percent_Asianrange-scale.png" class="img-fluid" alt="Figure 13: Percent of Population Identifying as Asian, Graphed on a Min-Max Scale"></p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

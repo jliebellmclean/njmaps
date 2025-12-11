@@ -1,5 +1,5 @@
 # Author: Julia Liebell-McLean
-# Date: December 2 - 
+# Date: December 2 - 11
 # Title: 2025 Gubernatorial Recreation
 # Notes: Use self-compiled gubernatorial election data to recreate maps
 #         made by the AP.
@@ -90,7 +90,8 @@ p <- ggplot() +
     axis.text = element_blank(),
     axis.ticks = element_blank(),
     axis.title = element_blank(),
-    panel.grid = element_blank()
+    panel.grid = element_blank(),
+    plot.title = element_text(size = 16, face = "bold")
   )
 
 p
@@ -187,7 +188,8 @@ p <- ggplot() +
   theme_minimal() +
   theme(axis.text = element_blank(),
         axis.ticks = element_blank(),
-        axis.title = element_blank())
+        axis.title = element_blank(),
+        plot.title = element_text(size = 16, face = "bold"))
 p
 
 # Remove the gridlines and add back on the cities
